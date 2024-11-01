@@ -17,6 +17,8 @@ int	integerlen(int number)
 	int	i;
 
 	i = 0;
+	if (number == 0)
+		return (1);
 	if (number < 0)
 	{
 		number *= -1;
@@ -32,7 +34,13 @@ int	integerlen(int number)
 
 void	arrfill(long i, int index, long n, char *str)
 {
-	while (i * 10 < n)
+	if (n == 0)
+	{
+		str[index++] = '0';
+		str[index] = '\0';
+		return ;
+	}
+	while (i * 10 <= n)
 		i *= 10;
 	while (i)
 	{
@@ -44,20 +52,17 @@ void	arrfill(long i, int index, long n, char *str)
 	str[index] = '\0';
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(int nb)
 {
 	long	i;
 	char	*str;
 	int		index;
+	long	n;
 
 	i = 1;
 	index = 0;
-	str = (char *)malloc(sizeof(char) * integerlen(n));
-	if (n == -2147483648)
-	{
-		str = "-2147483648";
-		return (str);
-	}
+	n = nb;
+	str = (char *)malloc(sizeof(char) * (integerlen(n) + 1));
 	if (!str)
 		return (NULL);
 	if (n < 0)
